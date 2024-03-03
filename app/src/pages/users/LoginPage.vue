@@ -6,13 +6,12 @@
           <div class="col-md-8 offset-md-2 col-xs-12 q-pl-md q-pr-md q-pt-sm">
             <q-card flat class="bg-white text-black">
               <div class="row">
-
                 <div class="col-md-6 col-xs-12">
                   <div class="row q-pt-md q-pb-md bg-teal-5">
                     <div class="col-md-8 offset-2 col-xs-8">
                       <q-img
                         placeholder-src="src/statics/login.png"
-                        src="src/statics/login.png"
+                        src="statics/login.png"
                         :ratio="11 / 11"
                         spinner-color="white"
                         spinner-size="82px"
@@ -22,6 +21,9 @@
                 </div>
 
                 <div class="col-md-6 col-xs-12">
+                  <q-card-section class="text-blue-grey-14">
+                    <div class="text-h5">Login to your account</div>
+                  </q-card-section>
                   <div class="q-pa-md">
                     <q-form
                       @submit="onSubmit"
@@ -35,7 +37,8 @@
                         lazy-rules
                         :rules="[
                           (val) =>
-                            (val && val.length > 0) || 'Data tidak boleh kosong',
+                            (val && val.length > 0) ||
+                            'Data tidak boleh kosong',
                         ]"
                       />
 
@@ -47,10 +50,10 @@
                         lazy-rules
                         :rules="[
                           (val) =>
-                            (val && val.length > 0) || 'Data tidak boleh kosong',
+                            (val && val.length > 0) ||
+                            'Data tidak boleh kosong',
                         ]"
                       />
-
 
                       <div>
                         <q-btn label="Login" type="submit" color="primary" />
@@ -65,7 +68,6 @@
                     </q-form>
                   </div>
                 </div>
-
               </div>
             </q-card>
           </div>
@@ -91,12 +93,12 @@ export default {
       password,
 
       onSubmit() {
-          $q.notify({
-            color: "green-4",
-            textColor: "white",
-            icon: "cloud_done",
-            message: "Submitted",
-          });
+        $q.notify({
+          color: "green-4",
+          textColor: "white",
+          icon: "cloud_done",
+          message: "Submitted",
+        });
       },
 
       onReset() {

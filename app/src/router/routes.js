@@ -1,10 +1,20 @@
 
 const routes = [
   {
-    path: '/',
+    path: '/admin',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/IndexPage.vue') }
+      { path: '', component: () => import('pages/admin/home/DataBuku.vue') },
+      { path: 'input', component: () => import('pages/admin/home/InputDataBuku.vue') },
+      { path: 'transaksi', component: () => import('pages/admin/transaksi/DataTransaksi.vue') }
+    ]
+  },
+  {
+    path: '/pembeli',
+    component: () => import('layouts/PembeliLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/pembeli/DataBuku/DataBuku.vue') },
+      { path: 'transaksi', component: () => import('pages/pembeli/transaksi/DataTransaksi.vue') }
     ]
   },
   {

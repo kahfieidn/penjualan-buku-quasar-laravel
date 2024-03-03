@@ -8,7 +8,7 @@
               <div class="row">
 
             <q-card-section class="text-blue-grey-14">
-                <div class="text-h4">Registrasi</div>
+                <div class="text-h5">Registrasi</div>
             </q-card-section>
                 <div class="col-md-12 col-xs-12">
                   <div class="q-pa-md">

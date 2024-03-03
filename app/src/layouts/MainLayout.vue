@@ -1,116 +1,130 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+ 
+    <q-header class="bg-white text-blue-grey-6">
       <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
-
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
+        <q-btn dense flat round icon="menu" @click="left = !left" />
+ 
+        <q-toolbar-title></q-toolbar-title>
+        <q-btn flat round dense icon="person" style="font-size: 20px;">
+          <q-menu>
+            <div class="row no-wrap q-pa-lg">
+              <div class="column">
+                <q-item-label class="text-h6">User</q-item-label>
+                <q-linear-progress class="q-mb-lg" :value="100" color="grey-4" style="height: 2px"/>
+                <div class="items-center">
+                  <div class="text-bold items-center">13421054</div>
+                  <div>Dwi Romadon</div>
+                </div>
+              </div>
+ 
+              <q-separator vertical inset class="q-mx-lg"></q-separator>
+ 
+              <div class="column items-center">
+                <q-btn flat round dense>
+                  <q-avatar size="72px">
+                    <img src="https://source.unsplash.com/random/300×300">
+                  </q-avatar>
+                </q-btn>
+ 
+                <div class="text-subtitle1 q-mt-md q-mb-xs"></div>
+                <div class="text-subtitle1 q-mt-md q-mb-xs"></div>
+                <div class="text-subtitle1 q-mt-md q-mb-xs"></div>
+                <q-btn
+                  color="primary"
+                  label="Keluar"
+                  unelevated
+                  size="sm"
+                  v-close-popup>
+                  <q-tooltip>Keluar disini..</q-tooltip>
+                </q-btn>
+              </div>
+            </div>
+          </q-menu>
+        </q-btn>
       </q-toolbar>
     </q-header>
-
+ 
     <q-drawer
-      v-model="leftDrawerOpen"
+      v-model="left"
+      :breakpoint="500"
       show-if-above
-      bordered
+      content-class="bg-white text-teal-10"
     >
-      <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
+      <q-scroll-area class="fit">
+        <q-list>
+          <q-item style="height: 50px;" class="bg-white text-bold">
+            <q-item-section>
+              Aplikasi Penjualan Buku
+            </q-item-section>
+          </q-item>
+          <q-item class="justify-center text-center q-mb-md q-pt-md">
+            <div>
+              <q-avatar size="100px" class="q-mb-md">
+                <img src="https://source.unsplash.com/random/300×300" alt="">
+              </q-avatar>
+              <div class="text-weight-bold">13421054</div>
+              <div>Dwi Romadon</div>
+            </div>
+          </q-item>
+          <q-item-label
+            header
+            class="text-grey-8"
+          >
+            Master Buku
+          </q-item-label>
+          <q-item clickable active-class="active" exact v-ripple to="/admin">
+            <q-item-section avatar>
+              <q-icon name="table_chart" />
+            </q-item-section>
+            <q-item-section>
+              Data Buku
+            </q-item-section>
+          </q-item>
 
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
+          <q-item clickable active-class="active" exact v-ripple to="/admin/input">
+            <q-item-section avatar>
+              <q-icon name="input" />
+            </q-item-section>
+            <q-item-section>
+              Input Data Buku
+            </q-item-section>
+          </q-item>
+
+
+          <q-item-label
+            header
+            class="text-grey-8"
+          >
+            Transaksi
+          </q-item-label>
+          <q-item clickable active-class="active" exact v-ripple to="/admin/transaksi">
+            <q-item-section avatar>
+              <q-icon name="table_chart" />
+            </q-item-section>
+            <q-item-section>
+              Data Transaksi
+            </q-item-section>
+          </q-item>
+ 
+        </q-list>
+      </q-scroll-area>
     </q-drawer>
-
-    <q-page-container>
+    <q-page-container class="bg-grey-2">
       <router-view />
     </q-page-container>
   </q-layout>
 </template>
-
+ 
 <script>
-import { defineComponent, ref } from 'vue'
-import EssentialLink from 'components/EssentialLink.vue'
-
-const linksList = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-]
-
-export default defineComponent({
+ 
+export default {
   name: 'MainLayout',
-
-  components: {
-    EssentialLink
-  },
-
-  setup () {
-    const leftDrawerOpen = ref(false)
-
+ 
+  data () {
     return {
-      essentialLinks: linksList,
-      leftDrawerOpen,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      }
+      left: false
     }
   }
-})
+}
 </script>
