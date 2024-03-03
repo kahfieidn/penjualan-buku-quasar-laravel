@@ -18,6 +18,7 @@ Route::prefix('admin')->group(function () {
 
     //route login
     Route::post('/login', [App\Http\Controllers\Api\Admin\LoginController::class, 'index']);
+    Route::post('/register', [App\Http\Controllers\Api\Admin\RegisterController::class, 'store']);
 
     //group route with middleware "auth"
     Route::group(['middleware' => 'auth:api'], function() {

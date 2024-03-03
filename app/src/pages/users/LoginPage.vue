@@ -10,7 +10,7 @@
                   <div class="row q-pt-md q-pb-md bg-teal-5">
                     <div class="col-md-8 offset-2 col-xs-8">
                       <q-img
-                        placeholder-src="src/statics/login.png"
+                        placeholder-src="/statics/login.png"
                         src="statics/login.png"
                         :ratio="11 / 11"
                         spinner-color="white"
@@ -80,17 +80,21 @@
 <script>
 import { useQuasar } from "quasar";
 import { ref } from "vue";
+import { api } from 'boot/axios';
+
 
 export default {
   setup() {
-    const $q = useQuasar();
-
+    const $q = useQuasar()
+    const data = ref(null)
+    
     const username = ref(null);
     const password = ref(null);
 
     return {
       username,
       password,
+
 
       onSubmit() {
         $q.notify({

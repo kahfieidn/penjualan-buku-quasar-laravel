@@ -14,12 +14,11 @@
                   <div class="q-pa-md">
                     <q-form
                       @submit="onSubmit"
-                      @reset="onReset"
                       class="q-gutter-md"
                     >
                       <q-input
                         filled
-                        v-model="username"
+                        v-model="form.username"
                         label="Username"
                         lazy-rules
                         :rules="[
@@ -27,11 +26,10 @@
                             (val && val.length > 0) || 'Data tidak boleh kosong',
                         ]"
                       />
-
                       <q-input
                         filled
-                        v-model="email"
-                        label="Email"
+                        v-model="form.nama_lengkap"
+                        label="Nama Lengkap"
                         lazy-rules
                         :rules="[
                           (val) =>
@@ -41,7 +39,15 @@
 
                       <q-input
                         filled
-                        v-model="no_handphone"
+                        v-model="form.email"
+                        label="Email"
+                        lazy-rules
+                        :rules="[ (val, rules) => rules.email(val) || 'Please enter a valid email address' ]"
+                      />
+
+                      <q-input
+                        filled
+                        v-model="form.no_handphone"
                         label="No. Handphone"
                         lazy-rules
                         :rules="[
@@ -53,7 +59,7 @@
                       <q-input
                         filled
                         type="password"
-                        v-model="password"
+                        v-model="form.password"
                         label="Password"
                         lazy-rules
                         :rules="[
@@ -85,47 +91,58 @@
     </q-page-container>
   </q-layout>
 </template>
-<script>
 
+<script>
+import { api } from "boot/axios";
 import { useQuasar } from "quasar";
-import { ref } from "vue";
 
 export default {
-  setup() {
-    const $q = useQuasar();
-
-    const username = ref(null);
-    const email = ref(null);
-    const no_handphone = ref(null);
-    const password = ref(null);
-
+  name: "RegisterPage",
+  data() {
     return {
-      username,
-      email,
-      no_handphone,
-      password,
-
-      onSubmit() {
-          $q.notify({
-            color: "green-4",
-            textColor: "white",
-            icon: "cloud_done",
-            message: "Submitted",
-          });
-      },
-
-      onReset() {
-        username.value = null;
-        email.value = null;
-        no_handphone.value = null;
-        password.value = null;
+      form: {
+        nama_lengkap: null,
+        username: null,
+        email: null,
+        no_handphone: null,
+        password: null,
       },
     };
   },
+  methods: {
+    onSubmit() {
+      api
+        .post("/api/admin/register", {
+          nama_lengkap: this.form.nama_lengkap,
+          username: this.form.username,
+          email: this.form.email,
+          no_handphone: this.form.no_handphone,
+          password: this.form.password,
+        })
+        .then((res) => {
+          console.log(res);
+          if (res.data.success != true && res.data.data.username) {
+            this.$q.notify({
+              color: "negative",
+              message: res.data.data.username,
+            });
+          }else if (res.data.success != true && res.data.data.email) {
+            this.$q.notify({
+              color: "negative",
+              message: res.data.data.email,
+            });
+          }else {
+            this.$q.notify({
+              color: "positive",
+              message: res.data.message,
+            });
+            this.$router.push("login");
+          }
+        });
+    },
+  },
 };
-
-
 </script>
+
 <style lang="">
-    
 </style>

@@ -3,6 +3,9 @@ const routes = [
   {
     path: '/admin',
     component: () => import('layouts/MainLayout.vue'),
+    meta: {
+      autentikasi: true
+    },
     children: [
       { path: '', component: () => import('pages/admin/home/DataBuku.vue') },
       { path: 'input', component: () => import('pages/admin/home/InputDataBuku.vue') },
@@ -12,6 +15,9 @@ const routes = [
   {
     path: '/pembeli',
     component: () => import('layouts/PembeliLayout.vue'),
+    meta: {
+      autentikasi: true
+    },
     children: [
       { path: '', component: () => import('pages/pembeli/DataBuku/DataBuku.vue') },
       { path: 'transaksi', component: () => import('pages/pembeli/transaksi/DataTransaksi.vue') }
